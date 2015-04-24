@@ -25,7 +25,7 @@ class appli:
 
     def initcam(self):
         camera = picamera.PiCamera()
-        camera.resolution = (2592, 1944)
+        camera.resolution = (1280, 960)
         camera.framerate = 1
 
         return camera
