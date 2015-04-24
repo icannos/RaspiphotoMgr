@@ -18,7 +18,7 @@ def index():
 def picamera_takeshot(name = 0, x = 2592, y = 2592):
     if name != 0:
         photoname = application.capture(name, x, y)
-        return static_file(photoname, root='img/', mimetype='image/png')
+        return static_file(photoname + '.jpg', root='img/', mimetype='image/png')
     else:
         return "Le nom doit etre specifie"
 
@@ -41,4 +41,4 @@ def imglist():
 
 
 def run_handler():
-    run(App, host='localhost', port=8080)
+    run(App, host='0.0.0.0', port=8080)

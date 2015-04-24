@@ -5,6 +5,7 @@ import picamera
 import time
 import socket
 
+
 global application
 
 
@@ -17,6 +18,7 @@ class appli:
         print ">> Lancement"
         print ">> Initialisatoin de la camera"
         self.camera = self.initcam()
+		
 
         print ">> Lancement du streaming"
 
@@ -35,13 +37,13 @@ class appli:
             photoname = name
 
         resolution = (x,y)
-        self.camera.capture('img/' + name + 'jpg', use_video_port=True, resize = resolution)
+        self.camera.capture('img/' + name + '.jpg', use_video_port=True, resize = resolution)
 
         return photoname
 
     def capture_while(self, delay, nb, nametemplate, x = 2592, y = 1944):
         for i in range(nb):
-            self.camera.capture('img/' + str(nametemplate) + '-' + str(i) +  '.jpeg', use_video_port=True, resize = (x, y))
+            self.camera.capture('img/' + str(nametemplate) + '-' + str(i) +  '.jpg', use_video_port=True, resize = (x, y))
             time.sleep(delay)
 
         return {'nametemplate' : nametemplate, 'from': 0, 'to': nb-1}
@@ -51,7 +53,8 @@ class appli:
         server_socket.bind(('0.0.0.0', port))
         server_socket.listen(0)
 
-    # Accept a single connection and make a file-like object out of it
+        print "Streaming"
+        # Accept a single connection and make a file-like object out of it
         connection = server_socket.accept()[0].makefile('wb')
         self.camera.start_recording(connection, format='h264', splitter_port=2)
 
