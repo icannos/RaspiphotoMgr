@@ -43,6 +43,10 @@ def main():
             application.camera.exposure_compensation = int(spliteddata[1])
         if spliteddata[0] == "mode":
             application.camera.exposure_mode = str(spliteddata[1])
+        if spliteddata[0] == "setspeed":
+            application.camera.shutter_speed = int(spliteddata[1])
+        if spliteddata[0] == "speed":
+            print application.camera.exposure_speed
         if spliteddata[0] == "modes":
             print application.camera.EXPOSURE_MODES
 
