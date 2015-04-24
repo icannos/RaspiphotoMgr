@@ -25,8 +25,8 @@ class appli:
 
     def initcam(self):
         camera = picamera.PiCamera()
-        camera.resolution = (1280, 960)
-        camera.framerate = 24
+        camera.resolution = (2592, 1944)
+        camera.framerate = 1
 
         return camera
 
@@ -59,11 +59,15 @@ class appli:
         self.camera.start_recording(connection, format='h264', splitter_port=2)
 
         while self.on:
-            time.sleep(10)
+            time.sleep(1)
 
+        print "Arret Streaming"
         self.camera.stop_recording(splitter_port=2)
+        print "Fermeture connexion"
         connection.close()
+        print "Arret Serveur"
         server_socket.close()
+        print "Arret complet"
 
 
 application = appli()

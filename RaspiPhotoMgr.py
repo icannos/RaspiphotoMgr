@@ -39,9 +39,15 @@ def main():
         if spliteddata[0] == "expo":
             application.camera.exposure_compensation = int(spliteddata[1])
         if spliteddata[0] == "mode":
-            application.camera.exposure_mode = int(spliteddata[1])
+            application.camera.exposure_mode = str(spliteddata[1])
         if spliteddata[0] == "modes":
             print application.camera.EXPOSURE_MODES
+
+
+    print "Arret CLI"
+
+    App.close()
+    print "Arret RequestHandler"
 
 
 if __name__ == '__main__':
