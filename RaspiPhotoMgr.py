@@ -13,6 +13,9 @@ def main():
     a = threading.Thread(None, application.streaming, None, (), {'port': 7000})
     c = threading.Thread(None, run_handler, None)
 
+    a.setDaemon(1)
+    c.setDaemon(1)
+
     a.start()
     c.start()
 
