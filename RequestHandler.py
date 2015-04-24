@@ -15,7 +15,7 @@ def index():
     return "Page d'accueil"
 
 @App.route('/picamera/photo/<name>/<x:int>/<y:int>')
-def picamera_takeshot(name = 0, x = 2592, y = 2592):
+def picamera_takeshot(name = 0, x = 2592, y = 1980):
     if name != 0:
         photoname = application.capture(name, x, y)
         return static_file(photoname + '.jpg', root='img/', mimetype='image/png')
