@@ -31,6 +31,11 @@ def picamera_rapidshot(name = 'Default', resolution = 0, contrast=0, brightness 
     return application.capture(name, application.resolutions[resolution][0], application.resolutions[resolution][1])
 
 
+@App.route('/webapp/<path:path>')
+def webapp(path = 0):
+    if path == 0:
+        path = 'index.html'
+    return static_file(path, root='webapp/')
 
 
 @App.route('/picamera/photos/<name>/<nb:int>/<delay:int>/<x:int>/<y:int>')
