@@ -40,82 +40,7 @@
 	</head>
 	
 	<body>
-		<div class="container">
-			<div class="row clearfix">
-				<div class="col-md-12 column">
-					<nav class="navbar navbar-default" role="navigation">
-						<div class="navbar-header">
-							<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"> <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button> <a class="navbar-brand" href="#">Brand</a>
-						</div>
-						
-						<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-							<ul class="nav navbar-nav">
-								<li class="active">
-									<a href="#">Link</a>
-								</li>
-								<li>
-									<a href="#">Link</a>
-								</li>
-								<li class="dropdown">
-									<a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown<strong class="caret"></strong></a>
-									<ul class="dropdown-menu">
-										<li>
-											<a href="#">Action</a>
-										</li>
-										<li>
-											<a href="#">Another action</a>
-										</li>
-										<li>
-											<a href="#">Something else here</a>
-										</li>
-										<li class="divider">
-										</li>
-										<li>
-											<a href="#">Separated link</a>
-										</li>
-										<li class="divider">
-										</li>
-										<li>
-											<a href="#">One more separated link</a>
-										</li>
-									</ul>
-								</li>
-							</ul>
-							<form class="navbar-form navbar-left" role="search">
-								<div class="form-group">
-									<input type="text" class="form-control" />
-								</div> <button type="submit" class="btn btn-default">Submit</button>
-							</form>
-							<ul class="nav navbar-nav navbar-right">
-								<li>
-									<a href="#">Link</a>
-								</li>
-								<li class="dropdown">
-									<a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown<strong class="caret"></strong></a>
-									<ul class="dropdown-menu">
-										<li>
-											<a href="#">Action</a>
-										</li>
-										<li>
-											<a href="#">Another action</a>
-										</li>
-										<li>
-											<a href="#">Something else here</a>
-										</li>
-										<li class="divider">
-										</li>
-										<li>
-											<a href="#">Separated link</a>
-										</li>
-									</ul>
-								</li>
-							</ul>
-						</div>
-						
-					</nav>
-				</div>
-			</div>
-			
+		<div class="container">		
 			
 			<div class="row clearfix">
 				<div class="col-md-12 column">
@@ -139,31 +64,58 @@
 									<div class='panel panel-default'>
 										<div class="panel-heading">Rapid Shot</div>
 										<div class='panel-body'>
-											<div class='col-md-4'>
+											<div class='col-md-6'>
+												<p>
+													<label for='resolution'>Image name:</label>
+													<input type='text' class='form-control' id='name_rapidshot' value='Default'/>
+												</p>
+												<p>
+													<label for='resolution'>Resolution:</label>
+													<select id='resolution' class="form-control">
+														<option value='0'>2592×1944</option>
+														<option value='1'>1920×1080</option>
+														<option value='2'>1296×972</option>
+														<option value='3'>1296×730</option>
+														<option value='4'>640×480</option>
+													</select>
+												</p>	
 												<p>
 													<label for='shutterspeedvalue'>Shutterspeed:</label>
-													<input type='number' readonly id='shutterspeedvalue' />
-												</p>											
+													<input type='number' class='form-control' readonly id='shutterspeedvalue' />
+												</p>
+												
 												<div id='shutterspeed' ></div>
 												</br>
 												<p>
 													<label for='brightnessvalue'>Brightness</label>
-													<input type='number' readonly id='brightnessvalue' />
+													<input type='number' class='form-control' readonly id='brightnessvalue' />
 												</p>
 												<div id='brightness' ></div>
 												</br>
 												<p>
 													<label for='contrastvalue'>Contrast</label>
-													<input type='number' readonly id='contrastvalue' />
+													<input type='number' class='form-control' readonly id='contrastvalue' />
 												</p>
 												<div id='contrast' ></div>
+												
+												
+												</br>
+												<div class='col-md-6'>
+													<button type="button" id='take_rapidshot' class="btn btn-primary btn-block">Take a shot</button>
+												</div>
+												<div class='col-md-6'>
+													<button type="button" id='reset_rapidshot' class="btn btn-default btn-block">Reset</button>
+												</div>
+											</div>
+											<div id='lastshot' class='col-md-6'>
+												
 											</div>
 										</div>
 									</div>
 								</div>
 							</div>
 							<div class="tab-pane" id="Settings">
-								
+								<input type='text' id='raspi_ip' value='0.0.0.0'/>
 							</div>
 							<div class="tab-pane" id="Gallery">
 								<p>
@@ -204,24 +156,56 @@
 		
 		
 		<script>
+			// buttons
+			
+			$('#reset_rapidshot').click(function(){		
+				
+				$( "#shutterspeed" ).slider('destroy');
+				$( "#brightness" ).slider('destroy');
+				$( "#contrast" ).slider('destroy');
+				
+				$( "#shutterspeed" ).slider({max:100000, min:0, value: 30000});
+				$( "#brightness" ).slider({max:100, min:0, value: 50});
+				$( "#contrast" ).slider({max:100, min:-100, value: 0});			
+				
+				$( "#shutterspeedvalue" ).val($( "#shutterspeed" ).slider('value'))
+				$( "#shutterspeed" ).slider('value', $( "#shutterspeedvalue" ).val());
+				
+				$( "#contrastvalue" ).val($( "#contrast" ).slider('value'))
+				$( "#contrast" ).slider('value', $( "#contrastvalue" ).val());
+				
+				$( "#brightnessvalue" ).val($( "#brightness" ).slider('value'))
+				$( "#brightness" ).slider('value', $( "#brightnessvalue" ).val());			
+				
+			});
+			
+			$('#take_rapidshot').click(function(){
+				url = $('#resolution option:selected').val() + '/' + $('#name_rapidshot').val() + '/' + $( "#shutterspeedvalue" ).val() + '/' + $( "#contrastvalue" ).val() + '/' + $( "#brightnessvalue" ).val();
+				$.get($('#raspi_ip').text() + '/rapidshot/' + url, function(data){ $('#lastshot').html('<img src="'+ $('#raspi_ip').text() + '/img/' + data +'" class="img-responsive img-thumbnail">') });
+				
+			});
+			
+			// Slider
 			$( "#shutterspeed" ).slider({max:100000, min:0, value: 30000});
 			$( "#brightness" ).slider({max:100, min:0, value: 50});
 			$( "#contrast" ).slider({max:100, min:-100, value: 0});
 			
+			
+			
 			$( "#shutterspeedvalue" ).val($( "#shutterspeed" ).slider('value'))
 			$( "#shutterspeed" ).slider('value', $( "#shutterspeedvalue" ).val());
 			
-			$( "#shutterspeed" ).on( "slide", function( event, ui ) { $( "#shutterspeedvalue" ).val(ui.value); $( "#shutterspeedvalue" ).change(); } );
-			$( "#shutterspeedvalue" ).change(function(){  $( "#shutterspeed" ).slider('value', $( "#shutterspeedvalue" ).val()); })
+			$( "#contrastvalue" ).val($( "#contrast" ).slider('value'))
+			$( "#contrast" ).slider('value', $( "#contrastvalue" ).val());
 			
 			$( "#brightnessvalue" ).val($( "#brightness" ).slider('value'))
 			$( "#brightness" ).slider('value', $( "#brightnessvalue" ).val());
 			
+			$( "#shutterspeed" ).on( "slide", function( event, ui ) { $( "#shutterspeedvalue" ).val(ui.value); $( "#shutterspeedvalue" ).change(); } );
+			$( "#shutterspeedvalue" ).change(function(){  $( "#shutterspeed" ).slider('value', $( "#shutterspeedvalue" ).val()); })	
+			
 			$( "#brightness" ).on( "slide", function( event, ui ) { $( "#brightnessvalue" ).val(ui.value); $( "#brightnessvalue" ).change(); } );
 			$( "#brightnessvalue" ).change(function(){  $( "#brightness" ).slider('value', $( "#brightnessvalue" ).val()); })
-			
-			$( "#contrastvalue" ).val($( "#contrast" ).slider('value'))
-			$( "#contrast" ).slider('value', $( "#contrastvalue" ).val());
 			
 			$( "#contrast" ).on( "slide", function( event, ui ) { $( "#contrastvalue" ).val(ui.value); $( "#contrastvalue" ).change(); } );
 			$( "#contrastvalue" ).change(function(){  $( "#contrast" ).slider('value', $( "#contrastvalue" ).val()); })

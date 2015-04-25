@@ -14,7 +14,7 @@ class appli:
     on = 1
     camera = None
 
-    resolutions = [[2592, 1944], [1920, 1080], [1296, 972], [1296, 730], [640, 480]]
+    resolutions = [ (2592, 1944) , (1920, 1080), (1296, 972), (1296, 730), (640, 480) ]
 
     def __init__(self):
         print ">> Lancement"
@@ -27,7 +27,7 @@ class appli:
 
     def initcam(self):
         camera = picamera.PiCamera()
-        camera.resolution = (1280, 960)
+        camera.resolution = self.resolutions[4]
         camera.framerate = 24
 
         return camera
