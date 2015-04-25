@@ -34,7 +34,7 @@ class appli:
 
     def capture(self, name = 0, x = 2592, y = 1944):
         if name == 'Default':
-            photoname = str(time.time())
+            photoname = str(int(time.time()))
         else:
             photoname = name
 
