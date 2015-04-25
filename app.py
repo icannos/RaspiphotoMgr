@@ -39,7 +39,7 @@ class appli:
             photoname = name
 
         resolution = (x,y)
-        self.camera.capture('img/' + name + '.jpg', use_video_port=True, resize = resolution)
+        self.camera.capture('img/' + photoname + '.jpg', use_video_port=True, resize = resolution)
 
         return photoname + '.jpg'
 
