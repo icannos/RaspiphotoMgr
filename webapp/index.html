@@ -181,7 +181,7 @@
 			
 			$('#take_rapidshot').click(function(){
 				url = $('#resolution option:selected').val() + '/' + $('#name_rapidshot').val() + '/' + $( "#shutterspeedvalue" ).val() + '/' + $( "#contrastvalue" ).val() + '/' + $( "#brightnessvalue" ).val();
-				$.get($('#raspi_ip').val() + '/rapidshot/' + url, function(data){ $('#lastshot').html('<img src="'+ $('#raspi_ip').text() + '/img/' + data +'" class="img-responsive img-thumbnail">') });
+				$.get($('#raspi_ip').val() + '/picamera/rapidshot/' + url, function(data){ $('#lastshot').html('<img src="'+ $('#raspi_ip').text() + '/img/' + data +'" class="img-responsive img-thumbnail">') });
 				
 			});
 			
