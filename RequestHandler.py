@@ -22,7 +22,7 @@ def picamera_takeshot(name = 0, x = 2592, y = 1980):
     else:
         return "Le nom doit etre specifie"
 
-@App.route('/picamera/rapidshot/<resolution:int>/<name>/<shutterspeed:int/<contrast:int>/<brightness:int>')
+@App.route('/picamera/rapidshot/<resolution:int>/<name>/<shutterspeed:int>/<contrast:int>/<brightness:int>')
 def picamera_rapidshot(name = 'Default', resolution = 0, contrast=0, brightness = 50, shutterspeed=0):
     application.camera.contrast = contrast
     application.camera.brightness = brightness
