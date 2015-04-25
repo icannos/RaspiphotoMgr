@@ -159,7 +159,7 @@
 					$('#gallery_display').html('');
 					for(img in answer.data)
 					{
-					$('#gallery_display').html($('#gallery_display').html() +  '<div class="col-md-4"><div class="thumbnail"><img  src="'+ $("#raspi_ip").val() + '/img/' + img +'" /></div></div>');
+						$('#gallery_display').html($('#gallery_display').html() +  '<div class="col-md-4"><div class="thumbnail"><img  src="'+ $("#raspi_ip").val() + '/img/' + answer.data[img] +'" /></div></div>');
 					}		
 					
 					
