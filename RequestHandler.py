@@ -22,6 +22,11 @@ def picamera_takeshot(name = 0, x = 2592, y = 1980):
     else:
         return "Le nom doit etre specifie"
 
+@App.route('/picamera/rapidshot/<resolution:int/<name>/<shutterspeed:int/<contrast:int>/<brightness:int>')
+def picamera_rapidshot(name = 'Default', resolution = 1, contrast=0, brightness = 50, shutterspeed=0):
+    
+
+
 @App.route('/picamera/photos/<name>/<nb:int>/<delay:int>/<x:int>/<y:int>')
 def picamera_takeshot(name = 0, nb=5, delay=2, x = 2592, y = 2592):
     photos = application.capture_while(delay, nb, name, x, y)
