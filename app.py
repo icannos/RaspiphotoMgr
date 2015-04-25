@@ -41,7 +41,7 @@ class appli:
         resolution = (x,y)
         self.camera.capture('img/' + name + '.jpg', use_video_port=True, resize = resolution)
 
-        return photoname
+        return photoname + '.jpg'
 
     def capture_while(self, delay, nb, nametemplate, x = 2592, y = 1944):
         for i in range(nb):
