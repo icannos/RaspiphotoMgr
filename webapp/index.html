@@ -118,38 +118,34 @@
 								<input type='text' id='raspi_ip' value='0.0.0.0'/>
 							</div>
 							<div class="tab-pane" id="Gallery">
+							</br>
+								<div class='row'>
+									<div class="btn-group" role="toolbar" aria-label="...">
+										<button id='gallery_refresh' type="button" class="btn btn-default"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span></button>
+
+									</div>
+								</div>
 								<p>
 									<div class="col-md-12 column">
-										<div class="row">
+										<div id='gallery_display' class="row">
 											<div class="col-md-4">
 												<div class="thumbnail">
 													<img alt="300x200" src="http://lorempixel.com/600/200/people" />
 													
 												</div>
 											</div>
-											<div class="col-md-4">
-												<div class="thumbnail">
-													<img alt="300x200" src="http://lorempixel.com/600/200/city" />
-													
-												</div>
-											</div>
-											<div class="col-md-4">
-												<div class="thumbnail">
-													<img alt="300x200" src="http://lorempixel.com/600/200/sports" />
-													
-												</div>
-											</div>
+
 										</div>
 									</div>
 								</p>
+								</div>
 							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			
-			
-			
+							</div>
+							</div>
+							</div>
+							
+							
+							
 		</div>
 		
 		
@@ -158,6 +154,21 @@
 		<script>
 			// buttons
 			
+			$('#gallery_refresh').click(function(){ 
+				$.get($('#raspi_ip').val() + '/imglist', function(answer){
+					$('#gallery_display').html('');
+					for(img in answer.data)
+					{
+						$('#gallery_display').html($('#gallery_display').html() +  '<div class="col-md-4"><div class="thumbnail"><img  src="'+ $('#raspi_ip').text() + '/img/' + img +'" /></div></div>');
+					}		
+					
+					
+					
+					});
+				
+				
+				});
+				
 			$('#reset_rapidshot').click(function(){		
 				
 				$( "#shutterspeed" ).slider('destroy');
