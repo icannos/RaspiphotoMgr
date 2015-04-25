@@ -14,6 +14,8 @@ class appli:
     on = 1
     camera = None
 
+    resolutions = [[2592, 1944], [1920, 1080], [1296, 972], [1296, 730], [640, 480]]
+
     def __init__(self):
         print ">> Lancement"
         print ">> Initialisatoin de la camera"
@@ -31,7 +33,7 @@ class appli:
         return camera
 
     def capture(self, name = 0, x = 2592, y = 1944):
-        if name == 0:
+        if name == 'Default':
             photoname = str(time.time())
         else:
             photoname = name
